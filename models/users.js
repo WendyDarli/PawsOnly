@@ -8,8 +8,9 @@ const UserSchema = new Schema({
     lastName: {type: String , required: true },
     email: {type: String , required: true},
     password: {type: String, required: true},
+    membershipStatus: {type: String, required: true},
     
-})
+});
 
 UserSchema.virtual('url').get(function () {
     return `/user/${this._id}`;
