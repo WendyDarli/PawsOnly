@@ -1,0 +1,59 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+  body
+
+    header
+        h1#logo PawsOnly
+        a.headerLinks(href="/login") Login
+        a.headerLinks(href="/signup") Sign up
+    div.centerPage
+      div.accountContainer 
+
+          h2 Sign up
+          form(action="/signup" method="POST")
+            label(for="username")
+            input.input(type="text" id="username" name="username" placeholder="Username" value=username required)
+            each error in errors
+              if error.path == 'username'
+                p.errorMsg #{error.msg}
+                            
+            label(for="firstName") 
+            input(type="text" id="fname" name="fname" placeholder="First Name" value=firstName required)
+            each error in errors
+              if error.path == 'fname'
+                p.errorMsg #{error.msg}
+                
+            label(for="lastName") 
+            input(type="text" id="lname" name="lname" placeholder="Last Name" value=lastName required)
+            each error in errors
+              if error.path == 'lname'
+                 p.errorMsg #{error.msg}
+
+            label(for="email") 
+            input( type="email" id="email" name="email" placeholder="E-mail" value=email required)
+            each error in errors
+              if errors.path == 'email'
+                 p.errorMsg #{error.msg}
+
+            label(for="password") 
+            input(type="password" id="password" name="password" placeholder="Password" value=password required)
+            each error in errors
+              if error.path == 'password'
+                p.errorMsg #{error.msg}
+
+                
+            label(for="confirmpass") 
+            input(type="password" id="confirmpass" name="confirmpass" placeholder="Confirm Password" value=confirmpass required)
+            each error in errors
+              if error.path == 'confirmpass'
+                p.errorMsg #{error.msg}
+
+                
+            p Already a member? 
+              a(style="color: #76ABAE" href="/login") Login
+            
+            button.longBttn(type="submit") Sign up
+
+
