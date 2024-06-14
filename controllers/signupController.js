@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const { body, validationResult } = require("express-validator");
 
 const User = require('../models/users');
+const genPassword = require('../lib/passwordUtils').genPassword;
 
 exports.signup_get = asyncHandler(async(req, res, next) => {
     // show the form
@@ -84,19 +85,22 @@ exports.signup_post = [
     .escape(),
 
     asyncHandler(async(req, res, next) => {
+
         const errors = validationResult(req);
+        const saltHash = genPassword(req.body.password);
+        const salt = saltHash.salt;
+        const hash = saltHash.hash;
 
         const user = new User({
             username: req.body.username,
             firstName: req.body.fname,
             lastName: req.body.lname,
             email: req.body.email,
-            password: req.body.password,
-
+            hash: hash,
+            salt: salt
         });
 
-        if (!errors.isEmpty()) {
-           
+        if (!errors.isEmpty()) {         
 
             res.render('signup', {
                 title: 'Sign Up',
@@ -104,16 +108,12 @@ exports.signup_post = [
                 firstName: req.body.fname,
                 lastName: req.body.lname,
                 email: req.body.email,
-                password: req.body.password,
-                confirmpass: req.body.confirmpass,
                 errors: errors.array()
             })
-            console.log(errors)
             
         } else {
             await user.save()
-            res.redirect(user.url);
-            console.log('saved');
+            res.redirect('/login');
         }
     })
 ];
