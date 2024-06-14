@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body{
+    background-color: #222831;
+    color: #EEEEEE;
+    font-family: roboto;
+    
+}
+
+#errMessage {
+    background-color: #643737;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    border-radius: 5px;
+    transition: opacity 0.7s ease-out; /*make it appear smoth*/
+}
+
+
+h2{
+    text-align: center;
+    color: #EEEEEE;
+    font-size: 45px;
+    font-weight: 700;
+    margin: 10px 0px 20px 0px;
+}
+
+.centerPage{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.accountContainer{
+    background-color: #31363F;
+    padding: 20px 50px 50px 50px;
+    border-radius: 15px;
+    min-width: 580px;
+    
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input{
+    background-color: #262A31;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    outline: none;
+    color: #EEEEEE;
+    font-size:16px;
+}
+input::-webkit-input-placeholder {
+    color: #bbbbbb; 
+  }
+
+label{
+    margin: 20px 0px 5px 10px;
+
+}
+
+.errorMsg{
+    color:red; 
+    margin: 3px 0px 3px 3x;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.longBttn{
+    margin: 40px 0px 0px 0px;
+    padding: 15px;
+    background-color: #76ABAE;
+    color: #EEEEEE;
+    font-size: 19px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s ease ;
+}
+
+.longBttn:hover{
+    background-color: #4a696b;
+}
+
+#secondaryLongBttn1{
+    margin: 60px 0px 0px 0px;
+    padding: 15px;
+    background-color: #577B8D;
+    color: #EEEEEE;
+    font-size: 19px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s ease ;
+}
+
+#secondaryLongBttn2{
+    margin: 10px 0px 0px 0px;
+    padding: 15px;
+    background-color: #344C64;
+    color: #EEEEEE;
+    font-size: 19px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s ease ;
+}
+#secondaryLongBttn1:hover{
+    background-color: #447c6d;
+}
+
+#secondaryLongBttn2:hover{
+    background-color: #643737;
+}

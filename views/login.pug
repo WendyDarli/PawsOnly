@@ -1,0 +1,40 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+  body
+
+    header
+        h1#logo PawsOnly
+        a.headerLinks(href="/login") Login
+        a.headerLinks(href="/signup") Sign up
+
+    div.centerPage
+      div.accountContainer 
+
+          h2 Login
+    
+          if (messages.error)
+            .alert.alert-danger
+              each val in messages.error
+                p#errMessage= val
+
+          form(action="/login" method='POST')
+            label(for="username") 
+            input(type="text" id="username" name="username" placeholder="Username or E-mail" value=username required)
+
+            label(for="password") 
+            input(type="password" id="password" name="password" placeholder="Password" value=password required)
+            
+            p Forgot your password? 
+              a(style="color: #76ABAE" href="#") Click Here!
+              
+            button.longBttn(type="submit") Login
+            button#secondaryLongBttn1(type="submit") Login/User Demo
+            button#secondaryLongBttn2(type="submit") Login/Admin Demo
+            
+            p(style='text-align: center;') Not a member yet? 
+              a(style="color: #76ABAE" href="/signup") Sign Up!            
+            
+
+
