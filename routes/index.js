@@ -3,7 +3,7 @@ const router = express.Router();
 
 const login_controller = require('../controllers/loginController');
 const signup_controller = require('../controllers/signupController');
-
+const messages_controller = require('../controllers/messagesController')
 const dashboard_controller = require('../controllers/dashboardController')
 
 router.get ('/', login_controller.index);
@@ -25,5 +25,10 @@ router.post('/signup', signup_controller.signup_post);
 //MESSAGES ROUTES
 
 router.get('/dashboard', dashboard_controller.index);
+
+router.get('/newpost', messages_controller.newpost_get);
+
+router.post('/newpost', messages_controller.newpost_post);
+
 
 module.exports = router;

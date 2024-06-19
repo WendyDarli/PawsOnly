@@ -4,10 +4,20 @@ html
     link(rel='stylesheet', href='/stylesheets/loginStyle.css')
   body
 
+    
     header
-        h1#logo PawsOnly
-        a.headerLinks(href="/login") Login
-        a.headerLinks(href="/signup") Sign up
+      div#header
+        div#logo
+          
+          img#catLogo(src="../images/catLogo.png", alt="Cat")
+          h1
+            | Paws
+            span#only Only
+
+        div.nav-links
+          a.longBttn#navLink(href="/login") Login
+          a.longBttn#navLink(href="/signup") Sign up
+
     div.centerPage
       div.accountContainer 
 
@@ -55,5 +65,6 @@ html
               a(style="color: #76ABAE" href="/login") Login
             
             button.longBttn(type="submit") Sign up
+
 
 
