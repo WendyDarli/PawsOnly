@@ -1,0 +1,55 @@
+#welcome{
+    text-align: start;
+}
+
+
+.messages{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    min-height: 100px;
+    max-width: 1327px;
+    grid-template-rows: auto;
+    
+
+}
+
+.onemessage{
+    background-color: #31363F;
+    border-radius: 15px;
+    margin: 19px;
+    width: 292px;
+    min-height: 100px;
+    display:block; 
+    overflow: auto;
+    height: 1%;
+  
+}
+
+.userheader{
+    display: flex;
+    align-items: center; 
+    padding: 17px;
+}
+
+.user-img{
+    height: 40px;
+    border-radius: 20px;
+    margin-right: 14px;
+}
+
+.message-content{
+    overflow: hidden;
+    min-height: 100px;
+}
+
+.message-img{
+    height: 292px;
+    padding-bottom: 36px;
+    display: block;
+}
+
+.message{
+    padding: 0px 17px;
+}

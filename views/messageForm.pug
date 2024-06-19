@@ -1,0 +1,36 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+    link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+  body
+
+    
+    header
+      div#header
+        div#logo
+          
+          img#catLogo(src="../images/catLogo.png", alt="Cat")
+          h1
+            | Paws
+            span#only Only
+
+        div.nav-links
+          a.longBttn#navLink(href="/login") Login
+          a.longBttn#navLink(href="/signup") Sign up
+    
+    div.centerPage
+      div.accountContainer 
+       
+        div.userheader
+            img.user-img(src=userProfileImg alt='Profile Image')
+            p.username= username
+
+        form(action="/newpost" method="POST" enctype="multipart/form-data")
+            label(for="postText")
+            textarea(rows="7" cols="50" max='532' id='postText' name='postText' placeholder='How are you feeling today little meow?' value=post_text required)
+
+            label(for='postImg') (optional) Add Image: 
+            input(type="file" src='' id='postImg' name='postImg')
+
+            button.longBttn(type='submit') Post it!
