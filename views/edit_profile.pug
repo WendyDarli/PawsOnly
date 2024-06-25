@@ -1,0 +1,58 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+    link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+    link(rel='stylesheet', href='/stylesheets/messageFormStyle.css')
+    link(rel='stylesheet', href= '/stylesheets/profileStyle.css')
+    script(src='/javascripts/previewImg.js')
+  body
+    header
+      div#header
+        div#logo
+          
+          img#catLogo(src="../images/catLogo.png", alt="Cat")
+          h1
+            | Paws
+            span#only Only
+
+        div.nav-links
+          a.longBttn#navLink(href="/profile") Profile
+          a.longBttn#navLink(href="/logout") Logout
+          a.longBttn#navLink(href="/dashboard") Dashboard
+
+
+    div.centerPage
+      div.accountContainer 
+        form(action="/editprofile" method='post' enctype="multipart/form-data")
+            .div1
+              label(for='profileImg') 
+              img.profile-img(src=profileImg, alt="Profile Image", onclick="document.getElementById('changeImg').click();" title="Change Profile Image" ) 
+              p.longBttn(onclick="document.getElementById('changeImg').click();") Change Image
+              input#changeImg(type="file" name="ProfileImg" onchange='previewImage(this);')
+  
+                
+            .div2
+                label(for='username' ) Username:
+                input(type="text" name="username" value= username)
+                each error in errors
+                  if error.path == 'username'
+                    p.errorMsg #{error.msg}
+
+                label(for='fname') First Name:
+                input(type="text" name="fname" value= fname) 
+                each error in errors
+                  if error.path == 'fname'
+                    p.errorMsg #{error.msg}
+
+                label(for='lname') Last Name:
+                input(type="text" name="lname" value= lname)
+                each error in errors
+                  if error.path == 'lname'
+                    p.errorMsg #{error.msg}
+
+                label(for='email') E-mail:
+                input#email-input(type="email" name="email" value= email disabled)             
+
+                button(type='submit').longBttn Save Profile
+                a.longBttn#cancel(href='/Profile') Cancel

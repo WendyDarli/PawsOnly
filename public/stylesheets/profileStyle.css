@@ -1,0 +1,96 @@
+.profile-label {
+    margin: 2% 0 1% 0;
+}
+
+.profile-info {
+    background-color: #262A31;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 4px 0;
+    color: #bbbbbb;
+}
+
+.profile-img {
+    width: 50%;
+    border-radius: 50%;
+}
+
+.accountContainer {
+    width: 80%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 2% 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    padding: 2% 2%;
+    width: 100%;
+}
+
+.bttns {
+    display: flex;
+    align-self: flex-start;
+}
+
+.bttns a {
+    margin: 7% 40px 0 0;
+}
+
+#email-input {
+    color: #a3a3a3;
+}
+
+
+#red {
+    background-color: #8a2525;
+    transition: 0.3s ease;
+}
+
+#red:hover {
+    background-color: #431010;
+}
+
+/* Edit Profile */
+
+form {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    width: 100%;
+}
+
+.div1, .div2 {
+    display: flex;
+    flex-direction: column;
+    padding: 2% 2%;
+}
+
+.div1 {
+    width: 50%;
+    align-items: center;
+    padding: 2% 0;
+}
+
+.div2 {
+    width: 80%;
+}
+
+#changeImg {
+    opacity: 0;
+}
+
+#cancel {
+    text-align: center;
+}
+

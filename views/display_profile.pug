@@ -1,0 +1,47 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+    link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+    link(rel='stylesheet', href='/stylesheets/messageFormStyle.css')
+    link(rel='stylesheet', href='/stylesheets/profileStyle.css')
+  body
+
+    
+    header
+      div#header
+        div#logo
+          
+          img#catLogo(src="../images/catLogo.png", alt="Cat")
+          h1
+            | Paws
+            span#only Only
+
+        div.nav-links
+          a.longBttn#navLink(href="/logout") Logout
+          a.longBttn#navLink(href="/dashboard") Dashboard
+    
+    div.centerPage
+      div.accountContainer 
+        .column
+            img.profile-img(src=profileImg, alt="Profile Image")
+        
+        .row
+            p.profile-label Username
+            p.profile-info= username 
+
+            p.profile-label First Name
+            p.profile-info= fname 
+
+            p.profile-label Last Name
+            p.profile-info= lname 
+
+            p.profile-label E-mail
+            p.profile-info= email 
+
+            p.profile-label Membership Status:
+            p.profile-info= membershipStatus
+            
+            .bttns
+                a.longBttn(href='/editProfile') Edit Profile
+                a.longBttn#red(href='/editProfile') Change Password
