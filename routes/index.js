@@ -5,6 +5,8 @@ const login_controller = require('../controllers/loginController');
 const signup_controller = require('../controllers/signupController');
 const messages_controller = require('../controllers/messagesController')
 const dashboard_controller = require('../controllers/dashboardController')
+const profile_controller = require('../controllers/profileController');
+const ensureAuthenticated = require('../controllers/auth');
 
 router.get ('/', login_controller.index);
 
@@ -26,9 +28,16 @@ router.post('/signup', signup_controller.signup_post);
 
 router.get('/dashboard', dashboard_controller.index);
 
-router.get('/newpost', messages_controller.newpost_get);
+router.get('/newpost', ensureAuthenticated, messages_controller.newpost_get);
 
-router.post('/newpost', messages_controller.newpost_post);
+router.post('/newpost', ensureAuthenticated, messages_controller.newpost_post);
 
+// PROFILE ROUTES 
+
+router.get('/profile', ensureAuthenticated, profile_controller.displayProfile_get);
+
+router.get('/editprofile', ensureAuthenticated, profile_controller.updateProfile_get);
+
+router.post('/editprofile', ensureAuthenticated, profile_controller.updateProfile_post);
 
 module.exports = router;
