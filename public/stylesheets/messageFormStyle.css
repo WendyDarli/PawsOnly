@@ -1,0 +1,14 @@
+#postText{
+    background-color: #262A31;
+    border-radius: 15px;
+    border: none;
+    padding: 10px 25px;
+    outline: none;
+    color: #EEEEEE;
+    resize: none;
+}
+
+#file-label{
+    color: gray;
+    font-size: 14px;
+}

@@ -1,37 +1,38 @@
+doctype html
 html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/loginStyle.css')
     link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
-
   body
+    if error
+      p.error-message !{error}
+    else   
+      header
 
-    header
-      div#header
-        div#logo
+          div#header
+            div#logo
+              img#catLogo(src="../images/catLogo.png", alt="Cat")
+              h1
+                | Paws
+                span#only Only
+            div.nav-links
+              a.longBttn#navLink(href="/profile") Profile
+              a.longBttn#navLink(href="/logout") Logout
+              a.longBttn#navLink(href="/newpost") +
+      div.centerPage
           
-          img#catLogo(src="../images/catLogo.png", alt="Cat")
-          h1
-            | Paws
-            span#only Only
+        p#welcome 
+          | Welcome 
+          span#only #{username}!
 
-        div.nav-links
-          a.longBttn#navLink(href="/profile") Profile
-          a.longBttn#navLink(href="/logout") Logout
-          a.longBttn#navLink(href="/newpost") +
-
-    div.centerPage
-        p#welcome Welcome #{username}!
-    
-    div.messages
-      each messageParam in messagesParams
-        div.onemessage
-          div.userheader
-            img.user-img(src=messageParam.author.profileImg, alt='Profile Image')
-            p.username= messageParam.author.username
-          div.message-content
-            p.message= messageParam.messagecontent
-            if messageParam.messageImg
-              img.message-img(src='/' + messageParam.messageImg.replace(/\\/g, '/'), alt='Message Image')
-
-          
+        div.messages
+          each messageParam in messagesParams
+            div.onemessage
+              div.userheader
+                img.user-img(src=messageParam.author.profileImg, alt='Profile Image')
+                p.username= messageParam.author.username
+              div.message-content
+                p.message !{messageParam.messagecontent}
+                if messageParam.messageImg
+                  img.message-img(src='/' + messageParam.messageImg.replace(/\\/g, '/'), alt='Message Image')

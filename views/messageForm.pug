@@ -3,6 +3,7 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/loginStyle.css')
     link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+    link(rel='stylesheet', href='/stylesheets/messageFormStyle.css')
   body
 
     
@@ -16,8 +17,9 @@ html
             span#only Only
 
         div.nav-links
-          a.longBttn#navLink(href="/login") Login
-          a.longBttn#navLink(href="/signup") Sign up
+          a.longBttn#navLink(href="/profile") Profile
+          a.longBttn#navLink(href="/logout") Logout
+          a.longBttn#navLink(href="/dashboard") Dashboard
     
     div.centerPage
       div.accountContainer 
@@ -28,9 +30,12 @@ html
 
         form(action="/newpost" method="POST" enctype="multipart/form-data")
             label(for="postText")
-            textarea(rows="7" cols="50" max='532' id='postText' name='postText' placeholder='How are you feeling today little meow?' value=post_text required)
-
-            label(for='postImg') (optional) Add Image: 
+            textarea(rows="3" cols="50" maxlength='120' id='postText' name='postText' placeholder='How are you feeling today little meow?' value=post_text required)
+            each error in errors
+              if error.path == 'postText'
+                p.errorMsg #{error.msg}
+                                                          
+            label(for='postImg' id='file-label') (Optional)
             input(type="file" src='' id='postImg' name='postImg')
 
             button.longBttn(type='submit') Post it!
