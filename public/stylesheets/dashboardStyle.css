@@ -54,3 +54,33 @@
     box-sizing: border-box; 
     width: 292px;
 }
+/* DELETE MESSAGE BUTTON  */
+
+.delete-my-msg{
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+.delete-my-msg{
+    transition: transform 0.3s ease; 
+}
+
+.delete-my-msg:hover img{
+    transform: scale(1.2);
+}
+
+.edit-my-msg{
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 40%;
+}
+.edit-my-msg{
+    transition: transform 0.3s ease; 
+}
+
+.edit-my-msg:hover img{
+    transform: scale(1.2);
+}
+

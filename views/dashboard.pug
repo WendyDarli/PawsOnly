@@ -4,6 +4,9 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/loginStyle.css')
     link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+    link(rel='icon' href='/images/favicon.ico' type='image/x-icon')
+    script(src="/javascripts/deleteMessage.js")  
+
   body
     if error
       p.error-message !{error}
@@ -32,6 +35,12 @@ html
               div.userheader
                 img.user-img(src=messageParam.author.profileImg, alt='Profile Image')
                 p.username= messageParam.author.username
+                if messageParam.author.id == userId
+                  a.edit-my-msg(href=`/api/message/${messageParam._id}`)
+                    image(src='../images/editIcon.png', alt='Edit')                  
+                  button.delete-my-msg(data-id=messageParam._id)
+                    img(src='../images/deleteIcon.png', alt='Delete')
+
               div.message-content
                 p.message !{messageParam.messagecontent}
                 if messageParam.messageImg

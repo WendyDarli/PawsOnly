@@ -12,11 +12,19 @@ const logger = require('morgan');
 const path = require('path');
 require('dotenv').config();
 
+const favicon = require('serve-favicon');
+
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+
+const cors = require('cors');
+
+
+
 const app = express();
+app.use(cors());
 
 // Ensuring MongoDB connection is established before creating session store
 const mongoClientPromise = new Promise((resolve) => {
@@ -58,9 +66,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static('uploads'));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')))
+app.use('/uploads', express.static('uploads',));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/images', express.static('public/images'));
+
+
+//This do not let messages to be deleted
+app.use('/api/message', (req, res, next) => {
+  // this reroutes the request without a redirect
+  // so that the clients URL doesn't change
+  req.originalUrl = '/req.user.profileImg'
+  app._router.handle(req, res, next)
+})
+
+// Important  to dele a messge
+const messages_controller = require('./controllers/messagesController')
+app.delete('/api/message/:id', messages_controller.message_delete);
+
+
+app.put('/api/message/:id', messages_controller.message_edit_put)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

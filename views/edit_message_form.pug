@@ -1,0 +1,41 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+    link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+    link(rel='stylesheet', href='/stylesheets/messageFormStyle.css')
+  body
+
+    
+    header
+      div#header
+        div#logo
+          
+          img#catLogo(src="../images/catLogo.png", alt="Cat")
+          h1
+            | Paws
+            span#only Only
+
+        div.nav-links
+          a.longBttn#navLink(href="/profile") Profile
+          a.longBttn#navLink(href="/logout") Logout
+          a.longBttn#navLink(href="/dashboard") Dashboard
+    
+    div.centerPage
+      div.accountContainer 
+       
+        div.userheader
+            img.user-img(src=`${userProfileImg}`  alt='Profile Image')
+            p.username= username
+
+        form(action="/newpost" method="POST" enctype="multipart/form-data")
+            label(for="postText")
+            textarea(rows="3" cols="50" maxlength='120' id='postText' name='postText' placeholder='How are you feeling today little meow?' value=new_text required) !{post_text}
+            each error in errors
+              if error.path == 'postText'
+                p.errorMsg #{error.msg}
+                                                          
+            label(for='postImg' id='file-label') New Image (Optional)
+            input(type="file" src='' id='postImg' name='postImg')
+            img(src=messageImg)
+            button.longBttn(type='submit') Post it!

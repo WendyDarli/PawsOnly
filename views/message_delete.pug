@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+    link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+  body
+    if error
+      p.error-message !{error}
+    else   
+      header
+
+          div#header
+            div#logo
+              img#catLogo(src="../images/catLogo.png", alt="Cat")
+              h1
+                | Paws
+                span#only Only
+            div.nav-links
+              a.longBttn#navLink(href="/profile") Profile
+              a.longBttn#navLink(href="/logout") Logout
+              a.longBttn#navLink(href="/newpost") +
+      div.centerPage
+        div.onemessage
+            div.userheader

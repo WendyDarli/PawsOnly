@@ -10,9 +10,17 @@ exports.index = asyncHandler(async(req, res, next) => {
 });
 
 exports.login_get = asyncHandler(async(req, res, next) => {
-    res.render('login', {
-        title: "Login"
-    });
+    
+    if(req.user) {
+        res.redirect('/dashboard');
+        
+    } else {
+        res.render('login', {
+            title: "Login"
+        });
+    };
+    
+
 });
 
 exports.login_post = passport.authenticate('local', {

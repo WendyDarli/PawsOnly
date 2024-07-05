@@ -6,7 +6,8 @@ exports.index = asyncHandler(async(req, res, next) => {
     try {
         const messagesParams = await Message.find().populate('author', 'username profileImg');
         const username = req.user ? req.user.username : null;
-        
+
+
         if (!username) {
             res.render('dashboard', {
                 title: 'Dashboard',
@@ -19,7 +20,9 @@ exports.index = asyncHandler(async(req, res, next) => {
                 title: 'Dashboard',
                 username: username,
                 messagesParams: messagesParams,
+                userId: req.user.id,
                 error: null
+
             });
         }
     } catch (error) {

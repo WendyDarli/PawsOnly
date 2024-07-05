@@ -5,14 +5,20 @@ const User = require('../models/users');
 const genPassword = require('../lib/passwordUtils').genPassword;
 
 exports.signup_get = asyncHandler(async(req, res, next) => {
-    // show the form
-    
-    const errors = validationResult(req);
-    res.render('signup', {
-        title: "Sign Up",
-        errors: errors.array()
-    });
+
+    if(req.user) {
+        res.redirect('/dashboard');
+
+    } else {
+        const errors = validationResult(req);
+        res.render('signup', {
+            title: "Sign Up",
+            errors: errors.array()
+        });
+    };
+
 });
+
 
 exports.signup_post = [
     

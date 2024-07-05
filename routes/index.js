@@ -32,6 +32,12 @@ router.get('/newpost', ensureAuthenticated, messages_controller.newpost_get);
 
 router.post('/newpost', ensureAuthenticated, messages_controller.newpost_post);
 
+router.delete('api/message/:id', messages_controller.message_delete);
+
+router.get('/api/message/:id', messages_controller.message_edit_get);
+
+router.put('.api/message/:id', messages_controller.message_edit_put);
+
 // PROFILE ROUTES 
 
 router.get('/profile', ensureAuthenticated, profile_controller.displayProfile_get);
