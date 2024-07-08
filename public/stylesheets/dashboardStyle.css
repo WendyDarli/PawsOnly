@@ -33,7 +33,9 @@
 
 .user-img{
     height: 40px;
-    border-radius: 20px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-right: 14px;
 }
 
@@ -44,7 +46,9 @@
 
 .message-img{
     height: 292px;
+    width: 292px;
     padding-bottom: 36px;
+    object-fit: cover;
     display: block;
 }
 

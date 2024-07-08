@@ -36,7 +36,7 @@ router.delete('api/message/:id', messages_controller.message_delete);
 
 router.get('/api/message/:id', messages_controller.message_edit_get);
 
-router.put('.api/message/:id', messages_controller.message_edit_put);
+router.post('/api/message/:id', messages_controller.message_edit_put);
 
 // PROFILE ROUTES 
 

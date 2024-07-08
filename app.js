@@ -86,8 +86,6 @@ const messages_controller = require('./controllers/messagesController')
 app.delete('/api/message/:id', messages_controller.message_delete);
 
 
-app.put('/api/message/:id', messages_controller.message_edit_put)
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

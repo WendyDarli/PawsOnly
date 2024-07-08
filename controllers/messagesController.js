@@ -4,6 +4,7 @@ const app = express();
 const asyncHandler = require('express-async-handler');
 const Message = require('../models/messages');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs').promises;
 
 exports.newpost_get = asyncHandler(async(req, res, next) => {
     const errors = validationResult(req);
@@ -75,9 +76,7 @@ exports.message_delete = async (req, res, next) => {
         await Message.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: 'Message deleted successfully' });
 
-        
-        req.originalUrl = '/req.user.profileImg';
-      
+                    
     } catch (error) {
         console.error('Error deleting message:', error);
         res.status(500).json({ message: 'Server error' });
@@ -85,7 +84,6 @@ exports.message_delete = async (req, res, next) => {
 };
 
 
-// Show form
 exports.message_edit_get = asyncHandler(async(req, res, next) => {
     const errors = validationResult(req);
     const message = await Message.findById(req.params.id).populate('messagecontent', 'messageImg');
@@ -97,49 +95,75 @@ exports.message_edit_get = asyncHandler(async(req, res, next) => {
         errors: errors.array(),
         post_text: message.messagecontent,
         messageImg: message.messageImg,
-
+        id: req.params.id,
     });
 });
 
-//put edit
+
 exports.message_edit_put = [
-    //retrieve post image,
-    //if no post iamge add one, otherwise keep ''
-    //if new image, delete and replace previous and save the new img id
-    
     upload.single('postImg'),
-    //validation errors
     body('postText')
-    .trim()
-    .escape()
-    .isLength({ min: 3}).withMessage('Your post need at least 3 characteres.')
-    .custom((value) => {
-        if (value.replace(/\s/g, '') === '') {
-            throw new Error('Your post cannot be just spaces.');
-        }
-        return true;
-    }),
+        .trim()
+        .escape()
+        .isLength({ min: 3 }).withMessage('Your post needs at least 3 characters.')
+        .custom((value) => {
+            if (value.replace(/\s/g, '') === '') {
+                throw new Error('Your post cannot be just spaces.');
+            }
+            return true;
+        }),
 
-    body('postImg'),
+    async (req, res, next) => {
+        const errors = validationResult(req);
 
-    asyncHandler(async (req, res, next) => {
-        const existingMessage = await Message.findById(req.params.id);
-        existingMessage.messagecontent = req.body.postText;
-        existingMessage.postImg = req.file.path;
-
-        if(!errors.isEmpty) {
-            res.render('edit_message_form', {
-                title: 'New Post',
+        if (!errors.isEmpty()) {
+            return res.render('edit_message_form', {
+                title: 'Edit Post',
+                id: req.params.id,
                 username: req.user.username,
                 userProfileImg: req.user.profileImg,
                 errors: errors.array(),
-                post_text: existingMessage.messagecontent,
-                messageImg: existingMessage.messageImg,
-        
+                post_text: req.body.postText,
+                messageImg: req.file ? req.file.path : '',
             });
-        } else {
-            await existingMessage.save();
-            res.redirect('/dashboard');
         }
-    })
+
+        try {
+            const message = await Message.findById(req.params.id);
+
+            if (!message) {
+                return res.status(404).send('Message not found');
+            }
+
+            const messageFields = {
+                messagecontent: req.body.postText,
+            };
+
+            if (req.file) {
+                if (message.messageImg) {
+                    try {
+                        await fs.unlink(message.messageImg);
+                    } catch (err) {
+                        console.log('Error deleting previous image:', err);
+                    }
+                }              
+                messageFields.messageImg = req.file.path;
+
+            } else if (req.body.currentImg) {
+                messageFields.messageImg = req.body.currentImg;
+            }
+
+            const updatedMessage = await Message.findByIdAndUpdate(req.params.id, messageFields, {
+                new: true, 
+            });
+
+            if (!updatedMessage) {
+                return res.status(404).send('Failed to update post. Please try again.');
+            }
+
+            res.redirect('/dashboard');
+        } catch (err) {
+            return next(err);
+        }
+    }
 ];
