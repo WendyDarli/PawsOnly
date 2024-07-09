@@ -34,7 +34,7 @@ router.post('/newpost', ensureAuthenticated, messages_controller.newpost_post);
 
 router.delete('api/message/:id', messages_controller.message_delete);
 
-router.get('/api/message/:id', messages_controller.message_edit_get);
+router.get('/api/message/:id', messages_controller.message_edit_get)
 
 router.post('/api/message/:id', messages_controller.message_edit_put);
 
@@ -45,5 +45,9 @@ router.get('/profile', ensureAuthenticated, profile_controller.displayProfile_ge
 router.get('/editprofile', ensureAuthenticated, profile_controller.updateProfile_get);
 
 router.post('/editprofile', ensureAuthenticated, profile_controller.updateProfile_post);
+
+router.get('/api/profile/:id', ensureAuthenticated, profile_controller.delete_profile);
+
+router.post('/api/profile/:id', ensureAuthenticated, profile_controller.delete_profile_post);
 
 module.exports = router;

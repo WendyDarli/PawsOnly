@@ -25,6 +25,7 @@ exports.signup_post = [
     body('username')
     .trim()
     .isLength({min:3}).withMessage('Username must contain more than 3 characteres.')
+    .isLength({max:10}).withMessage('Username must contain less than 10 characteres.')
     .matches(/^[a-zA-Z ]*$/).withMessage('Username must contain only letters and spaces.')
     .custom(async value => {
         const username = await User.findUserByUsername(value);
@@ -37,12 +38,14 @@ exports.signup_post = [
     body('fname')
     .trim()
     .isLength({min:3}).withMessage('First name must contain more than 3 characteres.')
+    .isLength({max:20}).withMessage('First name must contain less than 20 characteres.')
     .matches(/^[a-zA-Z ]*$/).withMessage('First name must contain only letters and spaces.')
     .escape(),
     
     body('lname')
     .trim()
     .isLength({min:3}).withMessage('Last name must contain more than 3 characteres.')
+    .isLength({max:20}).withMessage('Last name must contain less than 20 characteres.')
     .matches(/^[a-zA-Z ]*$/).withMessage('Last name must contain only letters and spaces.')
     .escape(),
 

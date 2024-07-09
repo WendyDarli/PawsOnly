@@ -44,4 +44,5 @@ html
             
             .bttns
                 a.longBttn(href='/editProfile') Edit Profile
-                a.longBttn#red(href='/editProfile') Change Password
+                a.longBttn#red(href='/api/profile/:id') Change Password
+                a.longBttn#red(href=`/api/profile/${id}`) Delete Profile

@@ -78,7 +78,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: 40%;
+    margin-left: 30%;
 }
 .edit-my-msg{
     transition: transform 0.3s ease; 

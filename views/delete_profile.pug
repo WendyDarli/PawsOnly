@@ -1,0 +1,45 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/loginStyle.css')
+    link(rel='stylesheet', href='/stylesheets/dashboardStyle.css')
+    link(rel='stylesheet', href='/stylesheets/messageFormStyle.css')
+    link(rel='stylesheet', href='/stylesheets/profileStyle.css')
+  body
+
+    
+    header
+      div#header
+        div#logo
+          
+          img#catLogo(src="../images/catLogo.png", alt="Cat")
+          h1
+            | Paws
+            span#only Only
+
+        div.nav-links
+          a.longBttn#navLink(href="/logout") Logout
+          a.longBttn#navLink(href="/dashboard") Dashboard
+    
+    div.centerPage
+      div.accountContainer 
+        div#deleteAccContainer
+            h1 Type your username here to delete your account.
+            p(style='color: red;') Note: This will also delete all your posts.
+            form(action=`/api/profile/${id}` method='POST')
+                label(for='username' style='display: none;') Username
+                input(type='text' id='username' name='username' placeholder='Your Username' value=username)
+                each error in errors 
+                    if error.path == 'username'
+                        p.errorMsg #{error.msg}
+                .bttns
+                    button.longBttn#deleteProfile(type='submit' data-id=id) Delete Profile
+    
+    style.
+      #deleteprofile{
+        background-color: #8a2525;
+        transition: background-color 0.3s ease;
+      }
+      #deleteProfile:hover {
+        background-color: #431010;
+      }

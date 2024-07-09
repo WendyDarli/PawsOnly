@@ -96,3 +96,13 @@ form {
     text-align: center;
 }
 
+#deleteAccContainer{
+    display: flex;
+    flex-direction: column;
+
+}
+
+#deleteAccContainer form{
+    flex-direction: column;
+   
+}
