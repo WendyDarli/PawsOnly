@@ -25,7 +25,7 @@ exports.signup_post = [
     body('username')
     .trim()
     .isLength({min:3}).withMessage('Username must contain more than 3 characteres.')
-    .isLength({max:10}).withMessage('Username must contain less than 10 characteres.')
+    .isLength({max:10}).withMessage('Username must contain less than 11 characteres.')
     .matches(/^[a-zA-Z ]*$/).withMessage('Username must contain only letters and spaces.')
     .custom(async value => {
         const username = await User.findUserByUsername(value);

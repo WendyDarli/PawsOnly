@@ -141,25 +141,45 @@ exports.delete_profile_post = [
         }
 
 
-        const user = await User.findById(req.params.id); //Find user by id
-        const userPosts = await Message.find({ author: req.user._id}); //find user posts
+        const user = await User.findById(req.params.id); 
+        const userPosts = await Message.find({ author: req.user._id}).populate('messageImg');
 
         try {
             if(!user) {
                 return res.status(404).send('User not found.');
             }
 
-            //If user has no posts delete its account directly
+
+            if(req.user.profileImg && req.user.profileImg !== '../uploads/users_profile_images/default.jpg') {
+                
+                try {
+                    await unlink(req.user.profileImg);
+
+                } catch {
+                    console.log(err);
+                }
+            }            
+
+
             if(!userPosts){
                 const deleteUser = await User.findByIdAndDelete(req.params.id);
             }
-            
+
+
+            for(const post of userPosts){
+                if(post.messageImg){
+                    try{
+                        await unlink(post.messageImg);
+                    } catch {
+                        console.log(err);
+                    }
+                }
+            }
+
             const postIds = userPosts.map(post => post._id);
             const deleteUserPosts = await Message.deleteMany({ _id: { $in: postIds  }});
             const deleteUser = await User.findByIdAndDelete(req.params.id);
-            
-            //TO DO: delete user profile image and post iamges using unlink
-
+                        
             res.redirect('/login');
         } catch (err) {
             return next(err);
