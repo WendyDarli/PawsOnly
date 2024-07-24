@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 
 const UserSchema = new Schema({
+    googleId: {type: String, unique: true},
     profileImg: {type: String, default: '../uploads/users_profile_images/default.jpg', required: false},
     username: {type: String , required: true, unique: true},
-    firstName: {type: String , required: true},
-    lastName: {type: String , required: true },
+    firstName: {type: String },
+    lastName: {type: String },
     email: {type: String , required: true, unique: true},
     hash: {type: String},
     salt: {type: String},
@@ -25,7 +26,5 @@ UserSchema.statics.findUserByUsername = async function(username) {
 UserSchema.statics.findUserByEmail = async function(email) {
     return await this.findOne({ email: email });
 };
-
-
 
 module.exports = mongoose.model("User", UserSchema);

@@ -11,7 +11,7 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 require('dotenv').config();
-
+require('./config/passportGoogleAuth.js');
 const favicon = require('serve-favicon');
 
 
@@ -24,7 +24,10 @@ const cors = require('cors');
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 
 // Ensuring MongoDB connection is established before creating session store
 const mongoClientPromise = new Promise((resolve) => {

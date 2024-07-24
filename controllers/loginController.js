@@ -37,3 +37,21 @@ exports.logout = asyncHandler(async (req, res, next) => {
         res.redirect('/login');
     });
 });
+
+exports.auth_google = passport.authenticate('google', { scope: ['profile', 'email'] });
+
+exports.google_login = passport.authenticate('google', {
+    successRedirect: '/dashboard',
+    faliureRedirect: '/login',
+});
+
+exports.google_logout = asyncHandler(async (req, res, next) => {
+     req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/login');
+    });
+})
+
+

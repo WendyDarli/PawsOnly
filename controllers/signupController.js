@@ -117,7 +117,9 @@ exports.signup_post = [
                 firstName: req.body.fname,
                 lastName: req.body.lname,
                 email: req.body.email,
-                errors: errors.array()
+                errors: errors.array(),
+                password: req.body.password,
+                confirmpass: req.body.confirmpass
             })
             
         } else {

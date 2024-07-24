@@ -156,7 +156,7 @@ exports.delete_profile_post = [
                     await unlink(req.user.profileImg);
 
                 } catch {
-                    console.log(err);
+                    console.log(errors);
                 }
             }            
 
@@ -171,7 +171,7 @@ exports.delete_profile_post = [
                     try{
                         await unlink(post.messageImg);
                     } catch {
-                        console.log(err);
+                        console.log(errors);
                     }
                 }
             }

@@ -8,6 +8,9 @@ const dashboard_controller = require('../controllers/dashboardController')
 const profile_controller = require('../controllers/profileController');
 const ensureAuthenticated = require('../controllers/auth');
 
+const passport = require('passport');
+
+
 router.get ('/', login_controller.index);
 
 // LOGIN ROUTES
@@ -17,6 +20,14 @@ router.get('/login', login_controller.login_get);
 router.post('/login', login_controller.login_post);
 
 router.get('/logout', login_controller.logout);
+
+//GOOGLE AUTH ROUTES
+
+router.get('/auth/google', login_controller.auth_google);
+
+router.get('/google/callback', login_controller.google_login);
+
+router.get('/google/logout', login_controller.google_logout);
 
 // SIGN UP ROUTES
 
