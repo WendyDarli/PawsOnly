@@ -6,6 +6,9 @@ const { body, validationResult } = require('express-validator');
 const Message = require("../models/messages");
 
 const { unlink } = require('fs').promises;
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+
 
 exports.displayProfile_get = asyncHandler(async(req, res, next) => {
     res.render('display_profile', {
@@ -15,6 +18,7 @@ exports.displayProfile_get = asyncHandler(async(req, res, next) => {
         fname: req.user.firstName,
         lname: req.user.lastName,
         email: req.user.email,
+        verified: req.user.verified,
         membershipStatus:req.user.membershipStatus,
         id: req.user._id,
     });
@@ -182,8 +186,100 @@ exports.delete_profile_post = [
                         
             res.redirect('/login');
         } catch (err) {
-            return next(err);
+            return next(errors);
         }
 
     }),
 ];
+
+exports.sendEmail_verification = asyncHandler(async (req, res, next) => {
+    if(req.user.verified) {
+        res.render('emailVerified', {
+            title: 'Email Verified',
+            contenth1: 'Your E-mail is already verified.',
+            contentp: 'Go back.'
+        })
+    }
+    else {
+        const user = { email: req.user.email };
+          
+        const emailToken = jwt.sign({
+            email: user.email
+        }, process.env.VERIFY_EMAIL_TOKEN_SECRET, { expiresIn: '15m' });
+          
+        const verificationUrl = `http://localhost:3000/verify/${emailToken}`;
+    
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              type: 'OAuth2',
+              user: process.env.MAIL_USERNAME,
+              pass: process.env.MAIL_PASSWORD,
+              clientId: process.env.GOOGLE_CLIENT_ID,
+              clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+              refreshToken: process.env.OAUTH_REFRESH_TOKEN
+            }
+        });
+          
+        let mailOptions = {
+            from: process.env.MAIL_USERNAME,
+            to: user.email, // Mudei para enviar para o e-mail do usuário
+            subject: 'PawsOnly E-mail Verification',
+            text: `Hi There!
+                  Please follow the given link to verify your email:
+                  ${verificationUrl} 
+                  Expires in 15 minutes.
+                  Thanks!`
+        };
+    
+        transporter.sendMail(mailOptions, function(err, data) {
+            if (err) {
+                console.log("Error " + err);
+                res.status(500).send('Error: ' + err);
+            } else {
+                console.log("Email sent successfully");
+                // Renderiza a página de verificação de e-mail somente após o envio do e-mail
+                res.render('verifyEmail', {
+                    title: 'Verify your e-mail',
+                    email: user.email,
+                });
+            }
+        });
+    }
+    
+    
+});
+
+
+exports.emailToken_verification = asyncHandler(async(req, res, next) => {
+    const token = req.params.token;
+
+    try {
+        
+        const decoded = jwt.verify(token, process.env.VERIFY_EMAIL_TOKEN_SECRET, { clockTolerance: 60 });
+        const email = decoded.email;
+
+        const verifyEmail = await User.findOneAndUpdate(
+            { email: email },
+            { verified: true },
+            { new: true, runValidators: true } 
+        );
+
+        if (!verifyEmail) {
+            return res.status(404).send('User not found');
+        }
+        else {
+            res.render('emailVerified', {
+                title: 'Email Verified',
+                contenth1: 'E-mail verified successfully.',
+                contentp: 'You can close this page now.'
+            })
+        }  
+          
+    } catch (err) {
+        res.status(400).send('Invalid or expired token. ' + err.message);
+    }
+});
+
+
+  

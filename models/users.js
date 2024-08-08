@@ -9,6 +9,7 @@ const UserSchema = new Schema({
     firstName: {type: String },
     lastName: {type: String },
     email: {type: String , required: true, unique: true},
+    verified: {type: Boolean, default: false},
     hash: {type: String},
     salt: {type: String},
     membershipStatus: {type: String, default: 'Member', required: true},

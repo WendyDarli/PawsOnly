@@ -8,9 +8,6 @@ const dashboard_controller = require('../controllers/dashboardController')
 const profile_controller = require('../controllers/profileController');
 const ensureAuthenticated = require('../controllers/auth');
 
-const passport = require('passport');
-
-
 router.get ('/', login_controller.index);
 
 // LOGIN ROUTES
@@ -60,5 +57,9 @@ router.post('/editprofile', ensureAuthenticated, profile_controller.updateProfil
 router.get('/api/profile/:id', ensureAuthenticated, profile_controller.delete_profile);
 
 router.post('/api/profile/:id', ensureAuthenticated, profile_controller.delete_profile_post);
+
+router.get('/verify', ensureAuthenticated, profile_controller.sendEmail_verification);
+
+router.get('/verify/:token', ensureAuthenticated, profile_controller.emailToken_verification);
 
 module.exports = router;
